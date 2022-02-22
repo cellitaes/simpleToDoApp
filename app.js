@@ -4,10 +4,6 @@ import ReactDOM from 'react-dom';
 const express = require("express");
 const path = require("path");
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-
 const app = express();
 
 app.use(express.json());
