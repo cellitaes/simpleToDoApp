@@ -58,7 +58,7 @@ class AddTask extends Component {
         <label htmlFor="date">Do kiedy zrobić</label>
         <input type="date" value={this.state.date} min={this.minDate} max={maxDate} onChange={this.handleDate} />
         <br />
-        <button onClick={this.handleClick}>Dodaj</button>
+        <button className='btn btn-success' onClick={this.handleClick}>Dodaj</button>
       </div>
     );
   }

@@ -10,14 +10,16 @@ const Task = (props) => {
 
   if (active) {
     return (
-      <div>
-        <p>
-          <strong style={important ? style : null}>{text}</strong> - do <span>{new Date(date).toLocaleDateString()} </span>
-          <button onClick={() => props.change(_id)}>Zostało zrobione</button>
-          <button onClick={() => props.delete(_id)}>X</button>
+      <div className='container d-flex mt-4'>
+        <p className='w-100 d-flex'>
+          <strong style={important ? style : null}>{text}</strong> - do <span className=''>{new Date(date).toLocaleDateString()} </span>
+          <span className='d-flex flex-grow-1 justify-content-end'>
+            <button className='btn btn-success ' onClick={() => props.change(_id)}>Zostało zrobione</button>
+            <button className='btn btn-danger' onClick={() => props.delete(_id)}>X</button>
+          </span>
         </p>
 
-      </div>
+      </div >
     );
   } else {
 
@@ -27,9 +29,9 @@ const Task = (props) => {
 
         <p>
           <strong>{text}</strong><em> (zrobić do {new Date(date).toLocaleDateString()})</em><br />
-          - potwierdzenie wykonania<span> {finish}</span>
+          - potwierdzenie wykonania<span> {finish}  </span>
 
-          <button onClick={() => props.delete(_id)}>X</button>
+          <button className='btn btn-danger' onClick={() => props.delete(_id)}>X</button>
         </p>
       </div>
     )

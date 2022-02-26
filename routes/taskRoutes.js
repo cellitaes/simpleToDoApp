@@ -80,7 +80,29 @@ function taskRoutes(app, mongo) {
         });
     });
 
+    app.patch('/patch/:id', (req, res) => {
+        const { id } = req.params;
 
+        client.connect(err => {
+            if (err) {
+                console.log("blad w polaczeniu");
+            } else {
+                console.log("Polaczenie z baza ustanowione");
+
+                const db = client.db("ToDoApp");
+
+                const tasks = db.collection('Tasks');
+
+                try {
+                    tasks.updateOne({ _id: ObjectId(id) }, { $set: { active: false, finishDate: new Date().getTime() } })
+                    res.json({ statusChanged: true });
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        });
+
+    });
 }
 
 

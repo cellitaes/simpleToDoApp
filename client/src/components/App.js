@@ -5,7 +5,7 @@ import './App.css';
 
 class App extends Component {
 
-  componentDidMount() {
+  getAllTasks = () => {
     fetch('/tasks', {
       method: 'GET',
     }).then(res => res.json())
@@ -14,6 +14,10 @@ class App extends Component {
           tasks: res,
         });
       })
+  }
+
+  componentDidMount() {
+    this.getAllTasks();
   }
 
   state = {
@@ -37,16 +41,14 @@ class App extends Component {
 
   changeTaskStatus = (id) => {
     console.log("change w stanie elementu o id " + id);
-    const tasks = Array.from(this.state.tasks);
-    tasks.forEach(task => {
-      if (task._id === id) {
-        task.active = false;
-        task.finishDate = new Date().getTime()
-      }
-    })
-    this.setState({
-      tasks
-    })
+    fetch(`/patch/${id}`, {
+      method: 'PATCH',
+    }).then(r => r.json())
+      .then(r => {
+        if (r.statusChanged) {
+          this.getAllTasks();
+        }
+      });
   }
 
   addTask = (text, date, important) => {
@@ -64,7 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>TOD APP</h1>
+        <h1>TODO APP</h1>
         <AddTask add={this.addTask} />
         <TaskList tasks={this.state.tasks} delete={this.deleteTask} change={this.changeTaskStatus} />
       </div>
